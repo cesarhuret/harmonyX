@@ -1,0 +1,23 @@
+{
+  "name": "discordx",
+  "version": "0.0.1",
+  "description": "The external discord bot",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SoloSaber/discordX.git"
+  },
+  "author": "Kesar & Leo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SoloSaber/discordX/issues"
+  },
+  "homepage": "https://github.com/SoloSaber/discordX#readme",
+  "dependencies": {
+    "discord.js": "^13.1.0",
+    "node-fetch": "^3.0.0"
+  }
+}
