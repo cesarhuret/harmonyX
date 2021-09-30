@@ -1,24 +1,17 @@
-const Discord = require('discord.js')
-const { RichEmbed, Intents  } = require("discord.js")
-const client = new Discord.Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`);
-    client.user.setPresence({
-        status: "online", 
-    });
-});
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
-client.on('message', async msg => {
-
-});
-
-client.login('ODI1NDcwMDQ4OTI3ODc1MTU0.YF-Y5A.iXGKGVlKw3GgZPCJ5wh_HZXCtcg');
-
-
-const http = require('http');
-const server = http.createServer((req, res) => {
-  res.writeHead(200);
-  res.end('ok');
-});
-server.listen(3000);
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
