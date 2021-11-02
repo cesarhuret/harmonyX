@@ -6,7 +6,7 @@ export default class Home extends Component {
 
     constructor () {
         super()
-        this.socket = new WebSocket('ws://chat.kesarx.repl.co')
+        this.socket = new WebSocket('wss://chat.kesarx.repl.co')
         this.waitForConnection = this.waitForConnection.bind(this)
         this.sendMessage = this.sendMessage.bind(this)
         this.itemsList = [];
