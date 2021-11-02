@@ -1,54 +1,83 @@
 import React, {Component} from "react";
 import { Alert, Button, Card, Col, Container, Row } from "react-bootstrap";
-const Discord = require('discord.js')
-const { RichEmbed } = require("discord.js")
-const client = new Discord.Client();
+import ReactDOM from 'react-dom';
 
 export default class Home extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-        message: '',
-    };
-    this.sendMessage = this.sendMessage.bind(this);
+  async componentDidMount () {
 
-    client.on('ready', () => {
-        console.log(`Logged in as ${client.user.tag}!`);
-        client.user.setPresence({
-            status: "online", 
-        });
-    });
-    
-    client.login('ODkzMTQ5NjkxNjQ5MzU5OTIz.YVXQeA.cm-Y3lTATnCrf4za4DU_Ez7LFUg');
+    document.getElementById('messageinput').addEventListener("keyup", async (event) => {
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13 && event.target.value !== "") {
+          // Cancel the default action, if needed
+            const message = await fetch('https://chat.kesarx.repl.co/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    sender: 'anonymous',
+                    content: event.target.value 
+                })
+            }).then((res) => res.json());
+            this.renderMessages()
+            document.getElementById('messageinput').value = ''
+        }
+      });
+
+    this.renderMessages()
   }
 
-  async sendMessage(event) {
-    
+  async renderMessages() {
+    let messageList;
+    try {
+        const messages = await fetch('https://chat.kesarx.repl.co/')
+        messageList = await messages.json();
+    } catch (e) {
+            console.log(e)
+    }
+
+        let itemsList = [];
+        for (let i = 0; i < messageList.length; i++) {
+            const date = new Date(messageList[i].updatedAt)
+                itemsList.push(
+                    <div key={messageList[i]._id}>
+                        <Col style={{paddingBottom: 30}}>
+                            <Card bg='dark' text='white'>
+                                <Card.Header>
+                                    <Row>
+                                        <Col xs={{span: 'auto'}}>{messageList[i].sender}</Col>
+                                        <Col xs={{span: 'auto'}} text='muted' className='ml-auto'>{date.toLocaleDateString()} {date.toLocaleTimeString()}</Col>
+                                        <img src='delete.png' onClick={async () => {
+                                            await fetch(`https://chat.kesarx.repl.co/delete/${messageList[i]._id}`, {
+                                                method: 'DELETE',
+                                            })
+                                            this.renderMessages()
+                                        }}/>
+                                    </Row>
+                                </Card.Header>
+                                <Card.Body>
+                                    <Card.Text>{messageList[i].content}</Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    </div>
+                )
+        }
+      ReactDOM.render(itemsList, document.getElementById('chat'))
   }
 
   render() {
-    client.on('message', async msg => {
-
-    });
         return ( 
         <div className="App">
             <Container>
-                <Row className='justify-content-center'>
-                    <Col md={9} lg={8} xl={8}>
-                        <Card className='round my-5 colored'>
-                            <Card.Body>
-                                <div className='p-4'>
-                                    <span>the chat</span>
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
+                    <Container className='rounded' style={{textAlign: "left", paddingTop: '5%', paddingBottom: '5%'}}>
+                        <div className='p-4' id='chat' style={{border: '2px solid black',  borderRadius: '1.5rem',}}></div>
+                    </Container>
                 <div className='fixed-bottom'>
-                    <Container fluid className='rounded'>
+                    <Container className='rounded' style={{textAlign: "left", backgroundColor: 'rgba(40, 40, 40, 0.8)', padding: '20px'}}>
                         <div className="mb-3">
-                                <input className="form-control form-control-user inputfocus" type="text" placeholder="Message" onChange={ (e) => {this.setState({message: e.target.value})}}/>
+                                <input id='messageinput' className="form-control form-control-user inputfocus" type="text" placeholder="Message"/>
                         </div>
                     </Container>
                 </div>
