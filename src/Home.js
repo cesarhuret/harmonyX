@@ -57,8 +57,8 @@ export default class Home extends Component {
     renderChat() {
         const messages = (
             <div>
-                {this.itemsList.map((item) => (
-                    <div>
+                {this.itemsList.map((item, index) => (
+                    <div id={index} key={index}>
                         <Col style={{paddingBottom: 30}}>
                             <Card bg='dark' text='white'>
                                 <Card.Body>
@@ -71,6 +71,7 @@ export default class Home extends Component {
             </div>
         )
         ReactDOM.render(messages, document.getElementById('chat'))
+        document.getElementById(this.itemsList.length-1).scrollIntoView({behavior: 'smooth'})
     }
 
     render() {
