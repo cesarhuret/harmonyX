@@ -10,6 +10,10 @@ export default class Home extends Component {
         this.waitForConnection = this.waitForConnection.bind(this)
         this.sendMessage = this.sendMessage.bind(this)
         this.itemsList = [];
+
+        this.state = {
+            activeUsers: 0
+        }
     }
 
     async componentDidMount () {
@@ -19,8 +23,12 @@ export default class Home extends Component {
         })
 
         this.socket.addEventListener('message', event => {
-            this.itemsList.push(`${event.data}`)
-            this.renderChat()
+            if(event.data.startsWith('Users:')) {
+                this.setState({activeUsers: event.data})
+            } else {
+                this.itemsList.push(`${event.data}`)
+                this.renderChat()
+            }
         })
 
         document.getElementById('messageinput').addEventListener("keyup", async (event) => {
@@ -79,14 +87,20 @@ export default class Home extends Component {
         <div className="App">
             <Container>
                     <Container className='rounded' style={{textAlign: "left", paddingTop: '5%', paddingBottom: '5%'}}>
-                        <div className='p-4' id='chat' style={{border: '2px solid black',  borderRadius: '1.5rem',}}>
+                        <div className='p-4' id='chat'>
                         
                         </div>
                     </Container>
+                <div className='fixed-top'>
+                    <Container className='rounded' style={{textAlign: "left", color: 'white', backgroundColor: 'rgba(40, 40, 40, 0.8)', padding: '20px'}}>
+                    <Col className="mb-3"><p>{this.state.activeUsers}</p></Col>
+                    </Container>
+                </div>
                 <div className='fixed-bottom'>
                     <Container className='rounded' style={{textAlign: "left", backgroundColor: 'rgba(40, 40, 40, 0.8)', padding: '20px'}}>
-                        <div className="mb-3">
-                                <input id='messageinput' className="form-control form-control-user inputfocus" type="text" placeholder="Message"/>                        </div>
+                            <Col className="mb-3">
+                                    <input id='messageinput' className="form-control form-control-user inputfocus" type="text" placeholder="Message"/>
+                            </Col>
                     </Container>
                 </div>
             </Container>
