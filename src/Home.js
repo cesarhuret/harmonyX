@@ -27,7 +27,7 @@ export default class Chat extends Component {
             if(event.data.startsWith('Users:')) {
                 this.setState({activeUsers: event.data})
             } else {
-                this.itemsList.push(`${event.data}`)
+                this.itemsList.push(JSON.parse(event.data))
                 this.renderChat()
             }
         })
@@ -67,10 +67,10 @@ export default class Chat extends Component {
         const messages = (
             <div>
                 {this.itemsList.map((item, index) => (
-                    <div id={index} key={index} className='message'>
+                    <div id={index} key={index}>
                         <Col style={{paddingBottom: 3}}>
-                            <Card className='border-0 py-2 message'>
-                                    <Card.Text>{item}</Card.Text>
+                            <Card className='border-0 p-2' style={{backgroundColor: `#${item.color}`}}>
+                                    <Card.Text>{item.message}</Card.Text>
                             </Card>
                         </Col>
                     </div>                        
