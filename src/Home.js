@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import { Alert, Button, Card, Col, Container, Row } from "react-bootstrap";
 import ReactDOM from 'react-dom';
+import './App.css'
 
 export default class Home extends Component {
 
@@ -20,6 +21,10 @@ export default class Home extends Component {
 
         this.socket.addEventListener('open', function(event) {
             console.log('connected to ws')
+        })
+
+        this.socket.addEventListener('create', function(event) {
+            console.log('create to ws')
         })
 
         this.socket.addEventListener('message', event => {
@@ -66,12 +71,10 @@ export default class Home extends Component {
         const messages = (
             <div>
                 {this.itemsList.map((item, index) => (
-                    <div id={index} key={index}>
-                        <Col style={{paddingBottom: 30}}>
-                            <Card bg='dark' text='white'>
-                                <Card.Body>
+                    <div id={index} key={index} className='message'>
+                        <Col style={{paddingBottom: 3}}>
+                            <Card className='border-0 py-2 message'>
                                     <Card.Text>{item}</Card.Text>
-                                </Card.Body>
                             </Card>
                         </Col>
                     </div>                        
@@ -88,7 +91,6 @@ export default class Home extends Component {
             <Container>
                     <Container className='rounded' style={{textAlign: "left", paddingTop: '5%', paddingBottom: '5%'}}>
                         <div className='p-4' id='chat'>
-                        
                         </div>
                     </Container>
                 <div className='fixed-top'>

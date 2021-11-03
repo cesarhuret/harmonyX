@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.message {
+  color: white;
+  background-color: rgba(54, 57, 63, 1)
+}
+
+.message:hover {
+  background-color: rgba(0, 0, 0, 0);
+}
