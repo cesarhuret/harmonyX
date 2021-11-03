@@ -68,8 +68,8 @@ export default class Chat extends Component {
             <div>
                 {this.itemsList.map((item, index) => (
                     <div id={index} key={index}>
-                        <Col style={{paddingBottom: 3}}>
-                            <Card className='border-0 p-2' style={{backgroundColor: `#${item.color}`}}>
+                        <Col>
+                            <Card className='border-0 p-2' style={{backgroundColor: `#${item.color}`, borderRadius: '0'}}>
                                     <Card.Text>{item.message}</Card.Text>
                             </Card>
                         </Col>
