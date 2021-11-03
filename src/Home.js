@@ -1,13 +1,13 @@
 import React, {Component} from "react";
-import { Alert, Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Container } from "react-bootstrap";
 import ReactDOM from 'react-dom';
 import './App.css'
 
-export default class Home extends Component {
+export default class Chat extends Component {
 
     constructor () {
         super()
-        this.socket = new WebSocket('wss://chat.kesarx.repl.co')
+        this.socket = new WebSocket(`wss://chat.kesarx.repl.co${window.location.pathname}`)
         this.waitForConnection = this.waitForConnection.bind(this)
         this.sendMessage = this.sendMessage.bind(this)
         this.itemsList = [];
@@ -22,7 +22,7 @@ export default class Home extends Component {
         this.socket.addEventListener('open', function(event) {
             console.log('connected to ws')
         })
-        
+
         this.socket.addEventListener('message', event => {
             if(event.data.startsWith('Users:')) {
                 this.setState({activeUsers: event.data})
