@@ -107,9 +107,9 @@ export default class Chat extends Component {
                         </div>
                     </Container>
                 <div className='fixed-bottom'>
-                    <Container className='rounded' style={{textAlign: "left", backgroundColor: 'rgba(40, 40, 40, 0.8)', padding: '20px'}}>
+                    <Container className='rounded' style={{textAlign: "left", backgroundColor: 'transparent', padding: '20px'}}>
                             <Col className="mb-3">
-                                    <input id='messageinput' className="form-control form-control-user inputfocus" type="text" placeholder="Message"/>
+                                    <input id='messageinput' className="border-0 form-control form-control-user inputfocus text-white" style={{backgroundColor: 'rgb(68,68,76)'}} type="text" placeholder="Message"/>
                             </Col>
                     </Container>
                 </div>
