@@ -22,11 +22,7 @@ export default class Home extends Component {
         this.socket.addEventListener('open', function(event) {
             console.log('connected to ws')
         })
-
-        this.socket.addEventListener('create', function(event) {
-            console.log('create to ws')
-        })
-
+        
         this.socket.addEventListener('message', event => {
             if(event.data.startsWith('Users:')) {
                 this.setState({activeUsers: event.data})
