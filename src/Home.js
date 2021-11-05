@@ -35,8 +35,12 @@ export default class Chat extends Component {
         document.getElementById('messageinput').addEventListener("keyup", async (event) => {
             // Number 13 is the "Enter" key on the keyboard
             if (event.keyCode === 13 && event.target.value !== "") {
-                this.sendMessage(event.target.value)
-                document.getElementById('messageinput').value = ''
+                if(event.target.value.startsWith('/')) {
+                    window.open(`${window.location.origin}${event.target.value}` ,"_self")
+                } else {
+                    this.sendMessage(event.target.value)
+                    document.getElementById('messageinput').value = ''
+                }
             }
         });
 
