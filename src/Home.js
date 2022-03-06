@@ -95,13 +95,9 @@ export default class Chat extends Component {
                     <Navbar.Brand href={window.location.pathname}>
                         <Col className="mb-3"><h1 style={{textDecoration: 'underline'}}>{window.location.pathname}</h1></Col>
                     </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto text-white">
-                        <Nav.Link className='navlink2'>Rooms</Nav.Link>
-                        <Nav.Link className='navlink2'>{this.state.activeUsers}</Nav.Link>
+                        <Nav.Link className='navlink2' disabled style={{paddingInline: '20px'}}>{this.state.activeUsers}</Nav.Link>
                     </Nav>
-                    </Navbar.Collapse>
                 </Container>
                 </Navbar>
             </div>
